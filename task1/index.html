@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>index</title>
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="fonts/iconfont/iconfont.css">
+    <link rel="stylesheet" href="fonts/arrowfont/iconfont.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <style type="text/css">
+        .infinite-scroll::-webkit-scrollbar{
+            display: none;
+        }
+        .bar-nav{
+            position: fixed;
+            height: 4.5rem;
+            background: #21BBCB;
+        }
+        .title{
+            line-height: 2.0rem;
+        }
+        .bar-tab{
+            position: fixed;
+        }
+        .basic-airfly-infor{
+            width: 100%;
+            display: inline-flex;
+            flex-wrap: nowrap;
+            margin-top: -.3rem;
+            height: 2.0rem;
+            justify-content: space-between;
+        }
+        .item-inner{
+            flex-wrap: wrap;
+        }
+        .dep{
+            display: inline-block;
+        }
+        .from-to{
+            display: inline-block;
+            font-size: 1.6rem;
+            margin-left: 6%;
+            margin-right: 6%;
+        }
+        .arr{
+            display: inline-block;
+            text-align: right;
+        }
+        .pri{
+            display: inline-block;
+            text-align: right;
+        }
+        .extra-infor{
+            display: inline-flex;
+            position: absolute;
+            right: 1rem;
+            font-size: .4rem;
+            margin-top: .9rem;
+            background: orange;
+        }
+        .fli{
+            display: inline-flex;
+            flex-wrap: nowrap;
+            font-size: .4rem;
+            color: grey;
+            margin-top: .6rem;
+            width: 51%;
+        }
+        .departure-time{
+            font-size: .85rem;
+        }
+        .departure{
+            font-size: .4rem;
+        }
+        .arrival{
+            font-size: .4rem;
+        }
+        .discount-infor{
+            font-size: .4rem;
+        }
+        .flight-type{
+            margin-left: 3%;
+            margin-right: 3%;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group">
+    <!-- 单个page ,第一个.page默认被展示-->
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left"></a>
+            <h2 class="title"><span class="city-from" id="city-from">北京</span>⇀<span class="city-to" id="city-to">上海</span></h2>
+            <a class="icon icon-search pull-right"></a>
+            <div class="infor-clue">
+                <div class="infor infor-0">
+                    <span>02-05</span>
+                    <span>今天</span>
+                    <span>¥363</span>
+                </div>
+                <div class="infor">
+                    <span>02-06</span>
+                    <span>周二</span>
+                    <span>¥437</span>
+                </div>
+                <div class="infor" style="background:#ffff; color: #21BBCB;">
+                    <span>02-07</span>
+                    <span>周三</span>
+                    <span>¥433</span>
+                </div>
+                <div class="infor">
+                    <span>02-08</span>
+                    <span>周四</span>
+                    <span>¥483</span>
+                </div>
+                <div class="infor">
+                    <span>02-09</span>
+                    <span>周五</span>
+                    <span>¥483</span>
+                </div>
+                <div class="more">
+                    <span class="rili iconfont icon-rili"></span>
+                    <span class="rili-letter">更多日期</span>
+                </div>
+            </div>
+        </header>
+        <!-- 工具栏 -->
+        <nav class="bar bar-tab">
+            <a class="tab-item external" href="#">
+                <span class="filter iconfont icon-filter"></span>
+                <span class="tab-label">筛选</span>
+            </a>
+            <a class="tab-item external active" href="#">
+                <span class="paixu iconfont icon-paixu"></span>
+                <span class="tab-label">推荐排序</span>
+            </a>
+            <a class="tab-item external" href="#">
+                <span class="shijian iconfont icon-shijian"></span>
+                <span class="tab-label">时间</span>
+            </a>
+            <a class="tab-item external" href="#">
+                <span class="jiage iconfont icon-jiage"></span>
+                <span class="tab-label">价格</span>
+            </a>
+        </nav>
+
+        <!-- 这里是页面内容区 -->
+    <div class="content infinite-scroll infinite-scroll-bottom"  data-distance="100" style="top: 4.5rem">
+        <div class="list-block">
+            <ul class="list-container">
+            </ul>
+        </div>
+        <div class="infinite-scroll-preloader">
+            <div class="preloader"></div>
+        </div>
+    </div>
+
+    <!-- 其他的单个page内联页（如果有） -->
+    <div class="page">...</div>
+</div>
+
+</div>
+</body>
+<script>
+    function createLi(data){
+        for(var i = 0; i < data.length; i++){
+            var itemContent = $("<li></li>").addClass("item-content");
+            var itemInner = $("<div></div>").addClass("item-inner");
+            var basicInfor = $("<div></div>").addClass("basic-airfly-infor");
+            var extraInfor = $("<div></div>").addClass("extra-infor").text(data[i]['extraInfor']);
+            var fli = $("<div></div>").addClass("fli");
+            var dep = $("<div></div>").addClass("dep");
+            dep.html("<div class='departure-time time'>"+data[i]['departureTime'].split(' ')[1]+"</div><div class='departure'>"+data[i]['departure']+"</div>");
+            var fromTo = $("<div></div>").addClass("from-to iconfont icon-changjiantou");
+            var arr = $("<div></div>").addClass("arr");
+            arr.html("<div class='arrivalTime time'>"+data[i]['arrivalTime'].split(' ')[1]+"</div><div class='arrival'>"+data[i]['arrival']+"</div>");
+            var pri = $("<div></div>").addClass("pri");
+            pri.html("<div class='price'>"+"¥"+data[i]['price']+"</div><div class='discount-infor'>"+data[i]['discountInfor']+"</div>");
+            //fli
+            var isShare = data[i]['isShare'] == "true" ? "共享" : "";
+            fli.html("<div class='flight-NO'>"+data[i]['flightNo']+"</div><div class='flight-type'>"+data[i]['flightType']+"</div><div class='isShare''>"+isShare+"</div>");
+
+            basicInfor.append(dep);
+            basicInfor.append(fromTo);
+            basicInfor.append(arr);
+            basicInfor.append(pri);
+            itemInner.append(basicInfor);
+            itemInner.append(extraInfor);
+            itemInner.append(fli);
+            itemContent.append(itemInner);
+            $(".list-container").append(itemContent);
+        }
+    }
+    var topValue = 0;
+    var interval  = null;
+    var lastIndex = 7;
+    var len = 0;
+    var data = null;
+    var flag = true;
+    function test(){
+        if($('.content').scrollTop() == topValue) {
+            clearInterval(interval);
+            interval = null;
+            if(lastIndex < len){
+
+                // flag = false;
+                var arr = data.splice(0,10);
+                setTimeout(function(){
+                    createLi(arr);
+                    if(lastIndex == len-1){
+                        flag = false;
+                        $('.infinite-scroll-preloader').css('display','none');
+                        setTimeout(function(){
+                            $(".bar-nav").css("height","4.5rem");
+                            $(".infinite-scroll").css("top","4.5rem");
+                            $(".bar-tab~.content").css("bottom","2.2rem");
+                            $(".infor-clue").show();
+                            $('.bar-tab').show();
+                        },500);
+                    }
+                },1000);
+                lastIndex = $('li').length-1;
+
+                console.log(lastIndex,len);
+
+            }else{
+                $('content').unbind('scroll');
+                console.log("到达底部");
+            }
+        }
+        else {
+            topValue = $('.content').scrollTop();
+        }
+    }
+    $(document).ready(function(){
+        $.ajax({
+            type:"get",
+            async: false,
+            url:"http://127.0.0.1:8888/",
+            dataType:'json',
+            success:function(res){
+                len = res.length;
+                var ret = res.splice(0,10);
+                createLi(ret);
+                data = res;
+            },
+            error:function(response){
+                console.log("api not content or error");
+            }
+        });
+        $('.content').scroll(function () {
+            if(flag) {
+                $(".infor-clue").css("display", "none");
+                $(".bar-nav").css("height", "2.2rem");
+                $(".infinite-scroll").css("top", "2.2rem");
+                $(".bar-tab").css("display", "none");
+                $(".bar-tab~.content").css("bottom", 0);
+                if (interval == null) {
+                    interval = setInterval("test()", 200);
+                }
+            }
+            else {
+                console.log('bottom');
+            }
+        });
+    });
+</script>
+</html>
