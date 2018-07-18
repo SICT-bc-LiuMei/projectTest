@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>lastindex</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="static/jquery3.3.1.js"></script>
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <style type="text/css">
+        img {
+            width: 90%;
+        }
+
+        .card {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            height: auto;
+            font-size: 14px;
+            background: #FFF;
+        }
+
+        table tr {
+            border: #CCC solid 1px;
+            height: 40px;
+        }
+
+        table td {
+            border: #CCC solid 1px;
+            padding-left: 15px;
+        }
+
+        .gray {
+            background: #f7f7f7;
+        }
+        td.active:before{
+             content: ".";
+             color: #0086b3;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
+<div class="page-group">
+    <!-- 单个page ,第一个.page默认被展示-->
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav" style="margin-bottom: 0px;height:auto;background: #FFF;">
+            <div style="width: 100%;height: 40px;">
+                <button class="button pull-left">
+                    <
+                </button>
+                <input class="button pull-right" type="text" placeholder="景点/商圈/酒店"/>
+                <span><span class="iconfont icon-dingwei"></span><a href="#" class="button pull-right">北京</a></span>
+            </div>
+            <div style="width: 100%;height: 40px; background: #FFF;">
+                <div class="row" style="font-size: 12px; margin-top: 20px;">
+                    <div class="col-10">
+                        入住
+                    </div>
+                    <div class="col-15">
+                        02-26
+                    </div>
+                    <div class="col-10">
+                        今天
+                    </div>
+                    <div class="col-15">
+                        --------
+                    </div>
+                    <div class="col-10">
+                        离店
+                    </div>
+                    <div class="col-15">
+                        02-27
+                    </div>
+                    <div class="col-10">
+                        明天
+                    </div>
+                    <div class="col-15">
+                        >
+                    </div>
+                </div>
+            </div>
+            <div style="width:100%;height: 50px;margin-top: -20px;" class="type">
+                <div class="row" style="font-size: 10px;">
+                    <div class="col-25">
+                        <p>住宿类型<span class="icon icon-down" style="font-size: 10px;"></span></p>
+                    </div>
+                    <div class="col-25">
+                        <p id="jingdian" class="open-about open-panel">景点商圈<span class="icon icon-down"
+                                                                                 style="font-size: 10px;"></span>
+                        <p>
+                    </div>
+                    <div class="col-25">
+                        <p>排序<span class="icon icon-down" style="font-size: 10px;"></span></p>
+                    </div>
+                    <div class="col-25">
+                        <p>筛选<span class="icon icon-down" style="font-size: 10px;"></span></p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- 这里是页面内容区 -->
+        <div class="content" style="margin-top:81px;">
+            <div style="position: fixed;z-index: 999;width: 100%;height: 500px;display: none" class="list">
+                <table style="border: 1px solid #ccc;width: 100%;background: #FFF;">
+                    <tbody>
+                    <tr>
+                        <td class="active">热门位置</td>
+                        <td>不限</td>
+                    </tr>
+                    <tr>
+                        <td class="gray">行政区</td>
+                        <td><span><input type="checkbox"/> 鼓浪屿风景区</span></td>
+                    </tr>
+                    <tr>
+                        <td class="gray">热门景点</td>
+                        <td><span><input type="checkbox"/> 曾习安</span></td>
+                    </tr>
+                    <tr>
+                        <td class="gray">机场车站</td>
+                        <td><span><input type="checkbox"/> 中山路步行街</span></td>
+                    </tr>
+                    <tr>
+                        <td class="gray">地铁线路</td>
+                        <td><span><input type="checkbox"/> 厦门大学</span></td>
+                    </tr>
+                    <tr>
+                        <td class="gray">大学周边</td>
+                        <td><span><input type="checkbox"/>厦门北站</span></td>
+                    </tr>
+                    <tr>
+                        <td class="gray">医院周边</td>
+                        <td><span><input type="checkbox"/> 厦门站</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="height: 50px;background: #FFF;padding: 5px 3%;">
+                    <a href="#" class="button sure-btn" style="background:#0086b3;height: 40px;
+                       line-height: 40px;color: #FFF;">确 定</a>
+                </div>
+                <div style="display: block;height: 150px;width: 100%;opacity: 0.4;background: #000;margin-left: -8.75rem;margin-top: 100px;" class="modal"></div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-content-inner"><img
+                            src="https://pic.tujia.com/upload/landlordunit/day_160911/thumb/201609112044162933_700_467.jpg"/>
+                    </div>
+                </div>
+                <div class="card-footer">卡脚</div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-content-inner"><img
+                            src="https://pic.tujia.com/upload/landlordunit/day_170228/thumb/201702281554027382_700_467.jpg"/>
+                    </div>
+                </div>
+                <div class="card-footer">卡脚</div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-content-inner"><img
+                            src="https://pic.tujia.com/upload/landlordunit/day_170228/thumb/201702281554027382_700_467.jpg"/>
+                    </div>
+                </div>
+                <div class="card-footer">卡脚</div>
+            </div>
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-content-inner"><img
+                            src="https://pic.tujia.com/upload/landlordunit/day_170228/thumb/201702281554027382_700_467.jpg"/>
+                    </div>
+                </div>
+                <div class="card-footer">卡脚</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var flag = false;
+        $("#jingdian").click(function () {
+                $(".list").show();
+                $(".modal").show();
+                $("#jingdian").css("color","#0086b3");
+                flag = true;
+        });
+        $(".modal").click(function () {
+                $(".list").hide();
+                $(".modal").hide();
+                $("#jingdian").css("color","#000");
+                flag=false;
+                $("span input").prop("checked",false);
+                $("span input").parent().css("color","#000");
+        });
+        $("span input").click(function(){
+            $(this).css("color","#0086b3");
+            $(this).parent().css("color","#0086b3");
+        });
+        $(".sure-btn").click(function(){
+                $(".list").hide();
+                $(".modal").hide();
+                $("#jingdian").css("color","#000");
+                $("span input").prop("checked",false);
+                $("span input").parent().css("color","#000");
+        });
+
+    });
+</script>
+</body>
+</html>
